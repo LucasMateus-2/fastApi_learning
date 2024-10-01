@@ -73,6 +73,24 @@ def test_put_return404(client):
     assert response.json() == {'detail': 'USER NOT FOUND'}
 
 
+def test_get_user_should_return_not_found_get_user(client):
+    response = client.get('/users/333')
+
+    assert response.status_code == HTTPStatus.NOT_FOUND
+    assert response.json() == {'detail': 'User not found'}
+
+
+def test_get_username_by_id(client):
+    response = client.get('/users/1')
+
+    assert response.status_code == HTTPStatus.OK
+    assert response.json() == {
+        'username': 'bob',
+        'email': 'bob@example.com',
+        'id': 1,
+    }
+
+
 def test_delete_user(client):
     response = client.delete('/users/1')
 

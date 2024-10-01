@@ -6,7 +6,6 @@ from fast_zero.schemas import (
     Message,
     UserDb,
     UserList,
-    UserName,
     UserPublic,
     UserSchema,
 )
@@ -55,10 +54,11 @@ def delete_user(user_id: int):
 
 
 # Pega recurso
-@app.get('/users/{user_id_name}', response_model=UserName)
-def get_username_by_id(user_id_name: int):
-    if user_id_name < 1 or user_id_name > len(database):
-        raise HTTPException(status_code=404, detail='USER NOT FOUND')
-    user = database[user_id_name - 1]
+@app.get('/users/{user_id}', response_model=UserPublic)
+def get_username_by_id(user_id: int):
+    if user_id > len(database) or user_id < 1:
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail='User not found'
+        )
 
-    return user
+    return database[user_id - 1]
