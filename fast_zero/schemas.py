@@ -17,13 +17,19 @@ class UserPublic(BaseModel):
     email: EmailStr
 
 
-class UserDb(UserSchema):
+class UserDb(BaseModel):
     id: int
+    username: str
+    email: EmailStr
+    password_hash: str
 
 
 class UserList(BaseModel):
     users: list[UserPublic]
 
 
-class UserName(UserPublic):
+
+class UserCreate(BaseModel):
     username: str
+    email: EmailStr
+    password_hash: str

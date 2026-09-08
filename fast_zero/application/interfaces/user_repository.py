@@ -1,0 +1,16 @@
+# fast_zero/application/interfaces/user_repository.py
+from typing import Protocol
+
+from fast_zero.schemas import UserDb, UserCreate, UserSchema
+
+
+class UserRepository(Protocol):
+    def add(self, user: UserCreate) -> UserDb: ...
+
+    def list_all(self) -> list[UserDb]: ...
+
+    def get_by_id(self, user_id: int) -> UserDb | None: ...
+
+    def update(self, user_id: int, user: UserCreate) -> UserDb | None: ...
+
+    def delete(self, user_id: int) -> bool: ...
